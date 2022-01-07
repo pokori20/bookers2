@@ -4,10 +4,16 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
-    
+
     # 本の投稿数をカウントするため
     @today_book = @books.created_today
     @yesterday_book = @books.created_yesterday
+    @two_day_ago_book = @books.created_2_day_ago
+    @three_day_ago_book = @books.created_3_day_ago
+    @four_day_ago_book = @books.created_4_day_ago
+    @five_day_ago_book = @books.created_5_day_ago
+    @six_day_ago_book = @books.created_6_day_ago
+
     @this_week_book = @books.created_this_week
     @a_week_ago_book = @books.created_a_week_ago
   end
