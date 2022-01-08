@@ -38,6 +38,20 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def search
+    @user = User.find(params[:user_id])
+    @books = @user.books
+    @book = Book.new
+    # 左項いつ作成されたかの値　右項は空欄。自分で投稿日時(create_at)に関するカラムを作成しなくても、レコード作成時に自動で投稿日時の情報が付与されている。
+    if params[:created_at] == ""
+      @search_book = "日付を選択してください"#①
+    else
+      create_at = params[:created_at]
+      # @booksの中から(where)探す。何を？列名(created_at)投稿日時がLIKE合致するもの　"検索値%"　前方一致
+      @search_book = @books.where(['created_at LIKE ? ', "#{create_at}%"]).count
+    end
+  end
+
 
   private
 
